@@ -1,10 +1,11 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'input the docker tag'
+        required: true
 
 jobs:
   build:
@@ -32,4 +33,4 @@ jobs:
         platforms: linux/amd64
         push: true
         file: ./Dockerfile
-        tags: vkarz/caddy:latest
+        tags: vkarz/caddy:${{ github.event.inputs.tags }},vkarz/caddy:latest
